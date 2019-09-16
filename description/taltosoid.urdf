@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<robot name="">
+
+  <link name="world"/>
+  <link name="base_link">
+    <!--
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.01"/>
+      <geometry>
+        <cylinder length="0.01" radius="0.05"/>
+      </geometry>
+    </visual>
+    -->
+  </link>
+
+  <link name="finger_root">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_root.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_root.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="base_spacer">
+    <visual>
+      <origin rpy="-1.57 1.57 0" xyz="0 -0.007 0.0275"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/base_spacer.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/base_spacer.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rotation_root">
+    <visual>
+      <origin rpy="0 -1.57 -3.14" xyz="0 0 0.001"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/rotation_root.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 -1.57 -3.14" xyz="0 0 0.001"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/rotation_root.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_segment_1">
+    <visual>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_segment.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_segment.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_hinge_1">
+    <visual>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_hinge.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_hinge.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_segment_2">
+    <visual>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_segment.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 0"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_segment.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_hinge_2">
+    <visual>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_hinge.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_hinge.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="finger_tip">
+    <visual>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_tip.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="-1.57 0 1.57" xyz="0 0.001 -0.0055"/>
+      <geometry>
+        <mesh filename="package://taltosoid_hardware/description/meshes/finger_tip.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="ee_target">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.015"/>
+      <geometry>
+         <sphere radius="0.01"/>
+      </geometry>
+      <material name="green">
+            <color rgba="0 1 0 0.33"/>
+      </material>
+    </visual>
+  </link>
+
+
+  <joint name="world_to_base_link" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <joint name="base_link_to_finger_root" type="fixed">
+    <parent link="base_link"/>
+    <child link="finger_root"/>
+    <origin xyz="0 0 0"/>
+  </joint>
+
+  <joint name="finger_root_to_base_spacer" type="revolute">
+    <parent link="finger_root"/>
+    <child link="base_spacer"/>
+
+    <axis xyz="1 0 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="1.57 0 0" xyz="-0.017 -0.00565 -0.00035"/>
+  </joint>
+
+
+  <joint name="base_spacer_to_rotation_root" type="fixed">
+    <parent link="base_spacer"/>
+    <child link="rotation_root"/>
+    <origin rpy="0 0.4 0" xyz="-0.016 0 0.02"/>
+  </joint>
+
+  <joint name="rotation_root_to_finger_segment_1" type="revolute">
+    <parent link="rotation_root"/>
+    <child link="finger_segment_1"/>
+
+    <axis xyz="0 0 1"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="-0.001 0.0055 -0.042"/>
+  </joint>
+
+  <joint name="finger_segment_1_to_finger_hinge_1" type="revolute">
+    <parent link="finger_segment_1"/>
+    <child link="finger_hinge_1"/>
+
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="-0.001 0 -0.0055"/>
+  </joint>
+
+  <joint name="finger_hinge_1_to_finger_segment_2" type="fixed">
+    <parent link="finger_hinge_1"/>
+    <child link="finger_segment_2"/>
+    <origin xyz="0 0 -0.0333"/>
+  </joint>
+
+  <joint name="finger_segment_2_to_finger_hinge_2" type="revolute">
+    <parent link="finger_segment_2"/>
+    <child link="finger_hinge_2"/>
+
+    <axis xyz="0 1 0"/>
+    <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+    <origin rpy="0 0 0" xyz="-0.001 0 -0.0055"/>
+  </joint>
+
+  <joint name="finger_hinge_2_to_finger_tip" type="fixed">
+    <parent link="finger_hinge_2"/>
+    <child link="finger_tip"/>
+    <origin xyz="0 -0.011 -0.0315"/>
+  </joint>
+
+  <joint name="finger_tip_to_ee_target" type="fixed">
+    <parent link="finger_tip"/>
+    <child link="ee_target"/>
+    <origin xyz="0 0.006 -0.006"/>
+  </joint>
+
+</robot>

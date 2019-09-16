@@ -1,0 +1,25 @@
+<launch>
+
+  <arg name="use_js_gui" default="true"/>
+  <arg name="robot_description" default="robot_description"/>
+
+  <param name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(find taltosoid_hardware)/description/taltosoid.urdf'"/>
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="/use_gui" value="$(arg use_js_gui)"/>
+    <rosparam param="/source_list">[/taltosoid_driver/joint_state]</rosparam>
+  </node>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+
+  <arg name="debug" default="false" />
+  <arg unless="$(arg debug)" name="launch_prefix" value="" />
+  <arg     if="$(arg debug)" name="launch_prefix" value="gdb --ex run --args" />
+
+  <arg name="config" default="true" />
+  <arg unless="$(arg config)" name="command_args" value="" />
+  <arg     if="$(arg config)" name="command_args" value="-d $(find taltosoid_hardware)/rviz/description.rviz" />
+
+  <node name="$(anon rviz)" launch-prefix="$(arg launch_prefix)" pkg="rviz" type="rviz" respawn="false" args="$(arg command_args)" output="screen"/>
+
+</launch>
