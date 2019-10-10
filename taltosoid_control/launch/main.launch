@@ -1,0 +1,18 @@
+<launch>
+  
+  <arg name="static_properties" default="false"/>
+  <arg name="rosbridge_host" default="localhost"/>
+  <arg name="rosbridge_port" default="9090"/>
+
+
+  <!-- Include Rosbridge launch -->
+  <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch"/>
+
+  <!-- Update rosbridge webiste properties -->
+  <node if="$(arg static_properties)" name="update_properties" pkg="taltosoid_control" type="update_rosbridge_server_properties.sh" args="$(find taltosoid_control)/websites/rosbrige_properties.json $(arg rosbridge_host) $(arg rosbridge_port)"/>
+  <node unless="$(arg static_properties)" name="update_properties" pkg="taltosoid_control" type="update_rosbridge_server_properties.py" args="$(find taltosoid_control)/websites/rosbrige_properties.json $(arg rosbridge_port)"/>
+
+  <!-- Launch HTTP server -->
+  <node name="web_server" pkg="taltosoid_control" type="web_server_start.sh" args="$(find taltosoid_control)/websites" output="screen"/>
+
+</launch>

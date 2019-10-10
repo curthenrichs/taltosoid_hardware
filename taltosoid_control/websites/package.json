@@ -1,0 +1,22 @@
+{
+  "name": "taltosoid_control",
+  "version": "1.0.0",
+  "description": "Provides UI controls for taltosoid ROS system",
+  "main": "",
+  "scripts": {
+    "start": "http-server ."
+  },
+  "author": "Curt Henrichs",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "http-server": "^0.11.1",
+    "jquery": "^3.4.1",
+    "roslib": "^0.20.0",
+    "popper.js": "^1.15.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/curthenrichs/taltosoid_srf.git"
+  }
+}
