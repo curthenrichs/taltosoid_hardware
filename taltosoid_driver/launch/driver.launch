@@ -1,0 +1,8 @@
+<launch>
+
+  <arg name="real" default="false"/>
+
+  <node if="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="hardware_rik_driver.py"/>
+  <node unless="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="fake_rik_driver.py"/>
+
+</launch>
