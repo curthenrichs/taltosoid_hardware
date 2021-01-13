@@ -1,7 +1,7 @@
 # taltosoid_hardware
 Taltos-oid seeks to understand the practicality in augmenting the human body with an additional robotic finger for everyday tasks. Taltos translates to shaman from Hungarian mythology. One potential defining trait of a shaman in the mythos is physical abnormalities such as an additional finger. Ergo Taltos-oid is using robotics to create a shaman through robotics (or just to help stabalize coffee cups).
 
-![Picture shows a gloved hand holding a cup with thumb, index finger, and middle finger. A second cup is being held with the ring finger, pinky, and the supernumerary robotic opposable finger](./documentation/cup-hold.jpg?raw=true "Holding my coffee")
+![Picture shows a gloved hand holding a cup with thumb, index finger, and middle finger. A second cup is being held with the ring finger, pinky, and the supernumerary robotic opposable finger](./documentation/cup-hold.jpg?raw=true "Holding my coffee" | width=500)
 
 
 **DOCUMENTATION IN PROGRESS**
