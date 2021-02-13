@@ -41,9 +41,6 @@ Below are some of the key improvements needed for version two:
 - Custom, compact controller PCB
 - Higher torque, more compact finger design
 
-## Experiments
-My goal once I develop version two is to perform a day-long autobiographical study wearing the finger.
-
 ### Software
 
 #### Version One
@@ -58,3 +55,7 @@ Below are some of the key improvements needed for version two:
 - Environment sensing (3D grasp targeting)
 - Collision avoidance, context aware pose
 - Augmentaton control strategies
+
+## Experiments
+My goal once I develop version two is to perform a day-long autobiographical study wearing the finger. Work can also be done under more strict laboratory experiments investigating grasping tasks.
+
