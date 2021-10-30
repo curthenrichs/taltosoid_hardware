@@ -1,8 +1,12 @@
 <launch>
 
   <arg name="real" default="false"/>
+  <arg name="port" default="COM10"/>
 
-  <node if="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="hardware_rik_driver.py"/>
-  <node unless="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="fake_rik_driver.py"/>
+  <node if="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="hardware_ltk_driver.py">
+    <param name="port" value="$(arg port)"/>
+  </node>
+ 
+  <node unless="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="fake_ltk_driver.py"/>
 
 </launch>

@@ -1,0 +1,15 @@
+<launch>
+    <arg name="port" default="COM10"/>
+    <arg name="use_rviz" default="true"/>
+    <arg name="connect_hw" default="true"/>
+
+    <include file="$(find taltosoid_driver)/driver.launch">
+        <arg name="port" value="$(arg port)"/>
+        <arg name="real" value="$(arg connect_hw)"/>
+    </include>
+
+    <include file="$(find taltosoid_driver)/robot_description.launch">
+        <arg name="use_rviz" value="$(arg use_rviz)"/>
+    </include>
+
+</launch>

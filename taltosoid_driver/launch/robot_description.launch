@@ -1,15 +1,12 @@
 <launch>
 
   <arg name="use_rviz" default="true"/>
-  <arg name="use_js_gui" default="true"/>
-  <arg name="robot_description" default="robot_description"/>
+  <arg name="robot_description" default="$(find taltosoid_driver)/description/taltosoid.urdf"/>
   
-
   <param name="$(arg robot_description)" command="$(find xacro)/xacro --inorder '$(find taltosoid_driver)/description/taltosoid.urdf'"/>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
-    <param name="/use_gui" value="$(arg use_js_gui)"/>
-    <rosparam param="/source_list">[/taltosoid_driver/joint_state]</rosparam>
+    <rosparam param="/source_list">[/taltosoid_driver/fake/joint_state, /taltosoid_driver/hardware/joint_state]</rosparam>
   </node>
 
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
