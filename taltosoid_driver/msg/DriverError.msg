@@ -1,0 +1,3 @@
+bool port_initialize
+bool invalid_msg
+bool no_response

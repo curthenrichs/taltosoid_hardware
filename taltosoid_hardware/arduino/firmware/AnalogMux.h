@@ -7,43 +7,29 @@
  * Glove Flex Sensor Driver
  */
 
-#ifndef FLEX_SENSOR_DRIVER_H
-#define FLEX_SENSOR_DRIVER_H
-
-//==============================================================================
-//  Libraries
-//==============================================================================
+#ifndef ANALOG_MUX_H
+#define ANALOG_MUX_H
 
 //==============================================================================
 //  Constants and Macro Definitions
 //==============================================================================
 
-typedef enum FlexSensorId {
+typedef enum AMuxSensorId {
 
   // Available sensors
-  FLEX_0_0,
-  FLEX_0_1,
-  FLEX_1_0,
-  FLEX_1_1,
-  FLEX_2_0,
-  FLEX_2_1,
-  FLEX_3_0,
-  FLEX_3_1,
-  FLEX_4_0,
-  FLEX_4_1,
-  FLEX_5_0,
-  FLEX_6_0,
+  FLEX_0 = 0,
+  FLEX_1 = 1,
 
   // Private value, used to define range of joints
-  __NUM_FLEX_SENSORS__
-} FlexSensorId_t;
+  __NUM_SENSORS__
+} AMuxSensorId_t;
 
 //==============================================================================
 //  Public Function Prototypes
 //==============================================================================
 
-void fx_init(void);
-void fx_update(void);
-float fx_get(FlexSensorId_t id);
+void amux_init(void);
+void amux_update(void);
+float amux_get(AMuxSensorId_t id);
 
 #endif

@@ -1,12 +1,9 @@
 <launch>
 
-  <arg name="real" default="false"/>
-  <arg name="port" default="COM10"/>
+  <arg name="default_port" default="COM10"/>
 
-  <node if="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="hardware_ltk_driver.py">
-    <param name="port" value="$(arg port)"/>
+  <node name="taltosoid_driver" pkg="taltosoid_driver" type="driver_node.py">
+    <param name="default_port" value="$(arg default_port)"/>
   </node>
- 
-  <node unless="$(arg real)" name="taltosoid_driver" pkg="taltosoid_driver" type="fake_ltk_driver.py"/>
 
 </launch>

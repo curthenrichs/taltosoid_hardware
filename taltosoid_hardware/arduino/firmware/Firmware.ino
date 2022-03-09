@@ -13,23 +13,30 @@
 
 #include "HardwareConfig.h"
 #include "FingerDriver.h"
-#include "FlexSensors.h"
+#include "AnalogMux.h"
 
 #include <ArduinoJson.h>
 #include <elapsedMillis.h>
 
 //==============================================================================
-//  Constants and Macro Definitions
+//  Constants
 //==============================================================================
 
-#define API_RX_BUFFER_SIZE (250)
+#define API_RX_BUFFER_SIZE                                    (250)
 
-#define API_MSG_DELIMITER '\0'
+#define API_MSG_DELIMITER                                     ('\0')
 
-#define FLEX_SENSOR_SAMPLE_TIMER_THRESHOLD (50)
-#define API_DATA_PUSH_TIMER (100)
+#define FLEX_SENSOR_SAMPLE_TIMER_THRESHOLD                    (50)
+#define API_DATA_PUSH_TIMER                                   (100) 
 
-#define SEND_JSON(json, device) do { serializeJson(json, device); device.print(API_MSG_DELIMITER); } while(0)
+//==============================================================================
+//  Macro Definitions
+//==============================================================================
+
+#define SEND_JSON(json, device) (do {                                       \
+  serializeJson(json, device);                                              \
+  device.print(API_MSG_DELIMITER);                                          \
+} while(0))
 
 //==============================================================================
 //  Private Data Members
@@ -110,36 +117,43 @@ void loop(void) {
     StaticJsonDocument<300> rxDoc;
     deserializeJson(rxDoc,(const char*)(_rx_buffer));
 
-    const char* requestType = rxDoc["request_type"];
+    const char* requestType = rxDoc["request"];
     if (requestType != NULL) {
       if (strcmp(requestType,"joint_get") == 0) {
-        int id = _joint_id_str_to_index(rxDoc["joint_id"]);
+        int id = _joint_id_str_to_index(rxDoc["id"]);
         _api_handle_get_joint_request(id);
+
       } else if (strcmp(rxDoc["request_type"],"joint_set") == 0) {
-        int id = _joint_id_str_to_index(rxDoc["joint_id"]);
+        int id = _joint_id_str_to_index(rxDoc["id"]);
         if (rxDoc.containsKey("angle")) {
           int angle = rxDoc["angle"];
           _api_handle_set_joint_request(id,angle);
+
         } else {
           StaticJsonDocument<500> txDoc;
           txDoc["error"] = true;
           txDoc["error_msg"] = "missing 'angle' attribute";
           txDoc["buffer"] = _rx_buffer;
           SEND_JSON(txDoc, API_SERIAL);
+
         }
-      } else if (strcmp(rxDoc["request_type"],"flex_sensor_get") == 0) {
-        int id = _sensor_id_str_to_index(rxDoc["flex_id"]);
+      } else if (strcmp(rxDoc["request_type"],"sensor_get") == 0) {
+        int id = _sensor_id_str_to_index(rxDoc["id"]);
         _api_handle_flex_sensor_request(id);
-      } else if (strcmp(rxDoc["request_type"],"metadata_get") == 0) {
+        
+      } else if (strcmp(rxDoc["request_type"],"meta_get") == 0) {
         _api_handle_metadata_request();
-      } else if (strcmp(rxDoc["request_type"],"force_push_msg") == 0) {
+
+      } else if (strcmp(rxDoc["request_type"],"update") == 0) {
         _api_push_msg();
+
       } else {
         StaticJsonDocument<500> txDoc;
         txDoc["error"] = true;
         txDoc["error_msg"] = "invalid type";
         txDoc["buffer"] = _rx_buffer;
         SEND_JSON(txDoc, API_SERIAL);
+        
       }
     } else{
       StaticJsonDocument<500> txDoc;
@@ -147,13 +161,14 @@ void loop(void) {
         txDoc["error_msg"] = "request type not specified";
         txDoc["buffer"] = _rx_buffer;
         SEND_JSON(txDoc, API_SERIAL);
+
     }
   }
 
   // Sample sensors
   if (flexSensorSampleTimer >= FLEX_SENSOR_SAMPLE_TIMER_THRESHOLD) {
     flexSensorSampleTimer -= FLEX_SENSOR_SAMPLE_TIMER_THRESHOLD;
-    fx_update();
+    amux_update();
   }
 
   // Push data to external device
